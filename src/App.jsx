@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Home from './components/Home';
+import Chat from './pages/Chat';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
@@ -21,6 +22,7 @@ function App() {
         <Route index element={`${isAuthenticated ? <Home onLogout={handleLogout} /> : <Navigate to="/login" />}`} />
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/chat" element={<Chat />} />
         {/* <Route path="*" element={<NoPage />} /> */}
     </Routes>
   </BrowserRouter>
