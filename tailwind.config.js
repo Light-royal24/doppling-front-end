@@ -21,16 +21,30 @@ export default {
   },
   plugins: [
     nextui({
+      addCommonColors:true,
       themes: {
         light: {
           // ...
           colors: {
-            secondary: "orangered",
+            secondary:{
+              DEFAULT:"#9353D3",
+              foreground:"#fff"
+            },
+            custom_white:{
+              DEFAULT:'#fff',
+              foreground:'#fff'
+            },
+            
           },
         },
         dark: {
           // ...
-          colors: {},
+          colors: {
+            secondary:{
+              // DEFAULT:"#9353D3",
+              // foreground:"fff"
+            },
+          },
         },
         // ... custom themes
         mytheme: {
@@ -39,8 +53,9 @@ export default {
           colors: {
             primary: {
               DEFAULT: "#BEF264",
-              foreground: "#000000",
+              foreground: "white",
             },
+           
             orange: "orangered",
             focus: "#BEF264",
           },
