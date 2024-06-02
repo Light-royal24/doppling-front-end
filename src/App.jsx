@@ -7,6 +7,7 @@ import Chat from './pages/Chat';
 import Landing from './pages/Landing';
 import Swup from 'swup';
 
+import StoriePage from './pages/StoriePage';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login onLogin={handleLogin}/>} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/stories" element={<StoriePage />} />
         {/* <Route path="*" element={<NoPage />} /> */}
     </Routes>
   </BrowserRouter>

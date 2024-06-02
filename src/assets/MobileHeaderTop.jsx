@@ -1,11 +1,11 @@
 import React from 'react'
 
-const MobileHeaderTop = () => {
+const MobileHeaderTop = ({content}) => {
   return (
     <div className='flex items-center justify-center w-full md:hidden bg-gray-500 z-[999]'>
         <header className='flex items-center justify-center flex-col w-[90%] fixed bottom-[2%] gap-1'>
         <div className='w-full flex items-center justify-end'>
-            <div className='text-gray font-[san-serif] rounded-[25px]  bg-[royalblue] text-[white] p-[15px] text-[1.2rem] font-[600] flex items-center justify-center'>the New Chat</div>
+            <div className='text-gray font-[san-serif] rounded-[25px]  bg-[royalblue] text-[white] p-[15px] text-[1.2rem] font-[600] flex items-center justify-center'>{content}</div>
         </div>
             <div className="bg-gray-200 w-full rounded-[10px] rounded-[30px] p-[0.5rem]">
                 <div className="flex items-center justify-between w-full">
