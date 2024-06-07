@@ -125,12 +125,12 @@ const Chat_Pane = ()=>{
               <input type="search" placeholder='Search Peoples, Groups Messages' className='grow p-2 border-none outline-none text-xs'  />
               </div>
 
-              <div style={{"userSelect":'none'}} className='w-full h-full border-l flex flex-col custom-scroll overflow-y-auto'>
+              <div style={{"userSelect":'none'}} className='w-full pl-1 h-full pt-1 border-l flex flex-col custom-scroll overflow-y-auto'>
                 {
                   contacts.map(contact => {
                     return (
-                      <div unselectable='on' className='flex gap-4 p-2 border-b cursor-pointer  hover:bg-gray-100 transition duration-75'>
-                        <Avatar src={contact.picture} />
+                      <div unselectable='on' className='flex gap-4 p-2 rounded-lg cursor-pointer  hover:bg-gray-100 transition duration-75'>
+                        <Avatar isBordered color='success' src={contact.picture} />
                         <div className='grow pr-2'>
                           <div className='flex items-center justify-between'>
                             <p className='font-bold'>{contact.name}</p>

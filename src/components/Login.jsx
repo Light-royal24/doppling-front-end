@@ -1,13 +1,37 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Login_Photo from '../img/login-photo.png'
 import { Input, ConfigProvider } from "antd";
 import { Button, Image,Avatar,Link, RadioGroup, Radio } from "@nextui-org/react";
 import { EyeInvisibleOutlined, EyeTwoTone, MailOutlined, KeyOutlined,UserOutlined ,SignatureOutlined,ArrowRightOutlined } from '@ant-design/icons';
 import Google from "../img/google.png"
+import axios from 'axios'
+import cookie from 'jscookie';
+
 
 
 export const Login_Form = ({stage_modify})=>{
+  const my_cookie = cookie
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [disabled,setDisabled] = useState(false)
+
+  const Handle_Login = async(email,password)=>{
+    const response = await axios.request({method:'post',withCredentials:true,withXSRFToken:true,url:'http://localhost:8000/api/api_login',data:{email:email,password:password},headers:{'x-csrftoken':my_cookie.get('csrftoken')}})
+    console.log(response.statusText)
+    console.log(response.data)
+    my_cookie.set({name:'access',value:response.data.access})
+    my_cookie.set({name:'refresh',value:response.data.refresh})
+
+    if (response.status != '200'){
+      setDisabled(false)
+    }
+  }
+
+  useEffect(()=>{
+    console.log(my_cookie.get('csrftoken'))
+    axios.request({withCredentials:true,url:"http://localhost:8000/api/login"}).then(resp=>console.log(res))
+  },[])
 
   return (
     <div className="grid grid-cols-2 gap-2 items-center w-3/5">
@@ -16,17 +40,22 @@ export const Login_Form = ({stage_modify})=>{
     </div>
 
     <div className=" flex flex-col gap-5">
-        <form action="" className="flex flex-col gap-3">
+        <form onSubmit={async(e)=>{
+          e.preventDefault()
+          // setDisabled(true)
+          console.log(email,password)
+          await Handle_Login(email,password)
+        }} action="" className="flex flex-col gap-3">
             <div>
-                <Input required className=" "  addonBefore={<UserOutlined className="text-purple-400" />} placeholder="username, phone or email" />
+                <Input disabled={disabled} onChange={char=>setEmail(char.target.value)} required className=" "  addonBefore={<UserOutlined className="text-purple-400" />} placeholder="username, phone or email" />
             </div>
 
             <div>
-                <Input.Password color="#9353D3" addonBefore={<KeyOutlined className="text-purple-400" />} iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} radius="md" placeholder="Password" />
+                <Input.Password disabled={disabled} onChange={char=>setPassword(char.target.value)} color="#9353D3" addonBefore={<KeyOutlined className="text-purple-400" />} iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} radius="md" placeholder="Password" />
             </div>
 
             <div>
-                <Button onClick={()=>stage_modify('otp')} className="" size="sm"  color="secondary" type="submit">Login</Button>
+                <Button isLoading={disabled} isDisabled={disabled}  className="" size="sm"  color="secondary" type="submit">Login</Button>
             </div>
 
         </form>
